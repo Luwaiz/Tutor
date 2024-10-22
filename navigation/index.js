@@ -7,9 +7,7 @@ const Stack = createNativeStackNavigator();
 const Index = () => {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{headerShown:false}}>
-				<Stack.Screen component={AppScreens} name="AppScreens" />
-			</Stack.Navigator>
+				<AppScreens/>
 		</NavigationContainer>
 	);
 };
