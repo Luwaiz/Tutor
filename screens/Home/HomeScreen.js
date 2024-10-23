@@ -1,9 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import styles from "./style";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Testimonials from "../../components/Testimonials";
 import BlogBox from "../../components/BlogsBox";
+import Carousel from "../../components/Carousel";
 
 const HomeScreen = () => {
 	return (
@@ -17,15 +18,17 @@ const HomeScreen = () => {
 						<Text style={styles.viewAll}>View all</Text>
 					</View>
 				</View>
-				<View style={styles.carousel}></View>
+				<View style={styles.carousel}>
+					{/* <Carousel /> */}
+				</View>
 				<View style={styles.subContainer}>
 					<Text style={styles.textLeft}>Students Testimonials</Text>
 					<Testimonials />
-				<View style={styles.blogCont}>
-					<Text style={styles.blogTitle}>Blogs</Text>
-                    <Text style={styles.viewAll}>View all</Text>
-				</View>
-				<BlogBox/>
+					<View style={styles.blogCont}>
+						<Text style={styles.blogTitle}>Blogs</Text>
+						<Text style={styles.viewAll}>View all</Text>
+					</View>
+					<BlogBox />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
