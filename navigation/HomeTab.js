@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
 		left: 14,
 		right: 14,
 		borderRadius: 20,
+		borderColor:"#042637"
 	},
 	label: {
 		fontSize: 12,

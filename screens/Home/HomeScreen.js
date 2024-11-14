@@ -9,7 +9,7 @@ import Carousel from "../../components/Carousel";
 const HomeScreen = () => {
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView>
+			<ScrollView contentContainerStyle={{paddingBottom:80}}>
 				<View style={styles.subContainer}>
 					<Text style={styles.welcome}>Welcome,</Text>
 					<Text style={styles.name}>Saloom.Jr</Text>
@@ -19,7 +19,6 @@ const HomeScreen = () => {
 					</View>
 				</View>
 				<View style={styles.carousel}>
-					{/* <Carousel /> */}
 				</View>
 				<View style={styles.subContainer}>
 					<Text style={styles.textLeft}>Students Testimonials</Text>
