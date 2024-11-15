@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CourseCard from "../../components/CourseCard";
@@ -93,7 +93,7 @@ const Courses = ({ route }) => {
 			<SafeAreaView style={styles.container}>
 				<ScrollView showsVerticalScrollIndicator={false}>
 					{data.map((course) => (
-						<CourseCard key={course.id} courseTitle={course.name} />
+						<CourseCard key={course.id} courseTitle={course.name} image={course.image}/>
 					))}
 				</ScrollView>
 			</SafeAreaView>

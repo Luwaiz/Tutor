@@ -1,10 +1,15 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("screen");
 
-const CourseCard = ({ courseTitle }) => {
+const CourseCard = ({ courseTitle,image }) => {
+	const navigation = useNavigation()
+	const onCoursePress = () => {
+        navigation.navigate("Lesson", { courseTitle,image })
+    }
 	return (
-		<View style={styles.box}>
+		<Pressable style={styles.box} onPress={onCoursePress}>
 			<View style={styles.topBox}>
 				<View style={styles.circle} />
 				<Text style={styles.courseName}>{courseTitle}</Text>
@@ -17,7 +22,7 @@ const CourseCard = ({ courseTitle }) => {
 				vel arcu viverra bibendum.
 			</Text>
 			<View style={styles.bottomBox}></View>
-		</View>
+		</Pressable>
 	);
 };
 
