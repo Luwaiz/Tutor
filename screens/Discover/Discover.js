@@ -3,7 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from '@expo/vector-icons/Feather';
 import BottomDiscover from "../../components/BottomDiscover";
-const {width, height} = Dimensions.get("window")
+import styles from "./styles";
 
 const Discover = () => {
 	return (
@@ -23,29 +23,4 @@ const Discover = () => {
 
 export default Discover;
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#042637",
-		alignItems: "center"
-	},
-	SearchBar: {
-		backgroundColor: "#8190A2",
-        borderRadius: 30,
-		width: width-50.2,
-		height:50,
-		flexDirection: "row",
-		alignItems: "center",
-        paddingHorizontal: 10,
-	},
-	Search: {
-        fontSize: 16,
-        paddingHorizontal: 20,
-		flex:1,
-		height:"100%",
-		alignItems: "center",
-		justifyContent: "center",
-		color: "#ffffff"
-    }
 
-});

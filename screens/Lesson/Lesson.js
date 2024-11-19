@@ -1,20 +1,29 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import styles from "./styles";
 
-const Lesson = ({ route }) => {
+const Lesson = ({ route, navigation }) => {
 	const { courseTitle, image } = route.params;
+	const GoBack = () => {
+		navigation.goBack();
+	};
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.header}>
-				<Ionicons name="chevron-back-sharp" size={30} color="#8190A2" />
+				<TouchableOpacity onPress={GoBack}>
+					<Ionicons name="chevron-back-sharp" size={30} color="#8190A2" />
+				</TouchableOpacity>
 				<View style={styles.circle} />
 				<Text style={styles.title}>{courseTitle}</Text>
 			</View>
+			<ScrollView>
+
 			<View style={styles.imageContainer}>
-				{/* <Image style={styles.image} source={image} /> */}
+				<Image style={styles.image} source={image} />
 			</View>
+
 			<View style={styles.content}>
 				<Text style={styles.lessonTitle}>Lesson Title</Text>
 				<Text style={styles.lessonDescription}>
@@ -29,50 +38,25 @@ const Lesson = ({ route }) => {
 					sagittis orci, in luctus velit velit et felis.
 				</Text>
 			</View>
+			<View style={styles.descriptionContainer}>
+				<View style={styles.topContainer}>
+					<View style={styles.chapterContainer}>
+						<Text style={styles.strongText}>3</Text>
+						<Text style={styles.strongText}>Lessons</Text>
+					</View>
+					<View style={styles.chapterContainer}>
+						<Text style={styles.strongText}>2:30:00</Text>
+						<Text style={styles.strongText}>Hours</Text>
+					</View>
+				</View>
+				<View style={styles.bottomContainer}>
+					<Text style={styles.strongText}>What you will learn</Text>
+					<Text style={styles.descriptionText}>Research work{"\n"}Methodology review</Text>
+				</View>
+			</View>
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
 
 export default Lesson;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "white",
-		paddingBottom: 20,
-	},
-	header: {
-		padding: 12,
-		alignItems: "center",
-		flexDirection: "row",
-	},
-	circle: {
-		width: 32,
-		height: 32,
-		borderRadius: 20,
-		backgroundColor: "#042637",
-		marginRight: 16,
-	},
-	title: {
-		fontSize: 18,
-		fontWeight: "bold",
-		color: "#000000",
-		flexWrap: "wrap",
-		maxWidth: 200,
-	},
-	content: {
-		padding: 20,
-		backgroundColor: "#F7F7F7",
-		borderRadius: 8,
-		marginTop: 20,
-	},
-	lessonTitle: {
-		fontSize: 20,
-		fontWeight: "bold",
-		marginBottom: 16,
-	},
-	lessonDescription: {
-		fontSize: 16,
-		marginBottom: 20,
-	},
-});

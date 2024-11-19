@@ -3,6 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CourseCard from "../../components/CourseCard";
 import Header from "../../components/Header";
+import styles from "./styles";
 
 const Courses = ({ route }) => {
 	const data = [
@@ -103,9 +104,4 @@ const Courses = ({ route }) => {
 
 export default Courses;
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "white",
-	},
-});
+
