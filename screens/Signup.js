@@ -1,15 +1,48 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Dimensions, Keyboard, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TextInput1 from "../components/TextInput1";
 import ActiveButton from "../components/buttons/ActiveButton";
 import BackButton from "../components/buttons/BackButton";
+import axios from "axios";
+import API from "../constants/API";
 const { width, height } = Dimensions.get("screen");
 
 const Signup = ({ navigation }) => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [email, setEmail] = useState("");
 	const ToHome = () => {
 		navigation.navigate("HomeTab");
+	};
+	const register = async () => {
+		if (password !== confirmPassword) {
+			alert("Passwords do not match");
+		} else {
+			const req = {
+				username: username,
+				email: email,
+				password: password,
+			};
+			Keyboard.dismiss();
+			setLoading(true);
+			try {
+				const response = await axios.post(API.signup, req);
+				console.log(response.data);
+				setLoading(false);
+				setUsername("")
+				setConfirmPassword("")
+				setPassword("")
+				setEmail("")
+				ToHome();
+			} catch (e) {
+				console.log(e);
+				setLoading(false);
+			}
+		}
 	};
 	return (
 		<SafeAreaView style={styles.container}>
@@ -24,21 +57,36 @@ const Signup = ({ navigation }) => {
 				<BottomSheetView style={styles.sheetCont}>
 					<View style={styles.textInputCont}>
 						<TextInput1
+							text={"Username"}
+							placeholder={"john doe"}
+							value={username}
+							onChangeText={(text) => setUsername(text)}
+						/>
+						<TextInput1
 							text={"School Email Address"}
 							placeholder={"john2022@student.babcock.edu.ng"}
+							value={email}
+							onChangeText={(text) => setEmail(text)}
 						/>
-						<TextInput1 text={"Phone Number"} placeholder={"08123456789"} />
 						<TextInput1
 							text={"Password"}
 							placeholder={"*************"}
 							password
+							value={password}
+							onChangeText={(text) => setPassword(text)}
 						/>
 						<TextInput1
 							text={"Confirm Password"}
 							placeholder={"*************"}
 							password
+							value={confirmPassword}
+							onChangeText={(text) => setConfirmPassword(text)}
 						/>
-						<ActiveButton title={"Sign up"} onPress={ToHome} />
+						<ActiveButton
+							title={"Sign up"}
+							onPress={register}
+							loading={loading}
+						/>
 					</View>
 				</BottomSheetView>
 			</BottomSheet>
