@@ -15,8 +15,8 @@ const Signup = ({ navigation }) => {
 	const [loading, setLoading] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [email, setEmail] = useState("");
-	const ToHome = () => {
-		navigation.navigate("HomeTab");
+	const ToLogin = () => {
+		navigation.navigate("Login");
 	};
 	const register = async () => {
 		if (password !== confirmPassword) {
@@ -37,7 +37,7 @@ const Signup = ({ navigation }) => {
 				setConfirmPassword("")
 				setPassword("")
 				setEmail("")
-				ToHome();
+				ToLogin();
 			} catch (e) {
 				console.log(e);
 				setLoading(false);

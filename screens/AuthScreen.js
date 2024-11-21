@@ -14,7 +14,7 @@ const AuthScreen = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.topContainer}>
-				{/* <Image source={require("../../assets/images/Logoswhite.png")} /> */}
+				<Image source={require("../assets/images/logo.png")} style={styles.image}/>
 			</View>
 			<BottomSheet
 				backgroundStyle={{ borderRadius: 30 }}
@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		marginTop: 20,
 		textAlign: "center",
-		
 	},
+	image:{
+	    width: 150,
+        height: 150,
+		resizeMode:'contain'
+    }
 });

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 	bottomText: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-		paddingTop: 50,
+		padding: 16,
 		alignItems:"center"
 	},
 	textLeft: {
