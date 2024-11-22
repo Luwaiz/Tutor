@@ -1,26 +1,37 @@
-import { Dimensions, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+	Dimensions,
+	Image,
+	Pressable,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("screen");
 
-const CourseCard = ({ courseTitle,image }) => {
-	const navigation = useNavigation()
+const CourseCard = ({ course, image }) => {
+	const navigation = useNavigation();
+	const { courseName, hours, lessons, courseDescription, content } = course;
+	console.log("this is the content",content)
 	const onCoursePress = () => {
-        navigation.navigate("Lesson", { courseTitle,image })
-    }
+		navigation.navigate("Lesson", { courseName, image, hours, lessons });
+	};
 	return (
 		<Pressable style={styles.box} onPress={onCoursePress}>
 			<View style={styles.topBox}>
 				<View style={styles.circle} />
-				<Text style={styles.courseName}>{courseTitle}</Text>
+				<Text style={styles.courseName}>{courseName}</Text>
 				<View>
-					<Text style={styles.time}>03{"\n"}HRS</Text>
+					{course.hours.length > 1 ? (
+						<Text style={styles.time}>{hours}</Text>
+					) : (
+						<Text style={styles.time}>0{hours}</Text>
+					)}
+					<Text style={styles.time}>HRS</Text>
 				</View>
 			</View>
-			<Text style={styles.description}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et lectus
-				vel arcu viverra bibendum.
-			</Text>
+			<Text style={styles.description}>{courseDescription}</Text>
 			<View style={styles.bottomBox}></View>
 		</Pressable>
 	);
@@ -35,11 +46,10 @@ const styles = StyleSheet.create({
 		height: 180,
 		borderRadius: 10,
 		marginVertical: 10,
-		shadowColor: '#919193',  
-		elevation: 15,  
+		shadowColor: "#919193",
+		elevation: 15,
 		overflow: "hidden",
-		alignSelf:"center"
-
+		alignSelf: "center",
 	},
 	topBox: {
 		width: "100%",
@@ -64,7 +74,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: "bold",
 		color: "#000000",
-		maxWidth:250,
+		maxWidth: 250,
 		marginRight: "auto",
 	},
 	description: {

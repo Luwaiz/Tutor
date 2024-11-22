@@ -40,4 +40,10 @@ const useAuthStore = create((set, get) => ({
     },
 }));
 
-export default useAuthStore;
+const useCourseStore = create((set) => ({
+    courses: [], // State to store fetched courses
+    setCourses: (fetchedCourses) => set({ courses: fetchedCourses }), // Method to update courses
+}));
+
+
+export default {useAuthStore,useCourseStore};

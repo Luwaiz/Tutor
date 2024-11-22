@@ -7,13 +7,13 @@ import ActiveButton from "../components/buttons/ActiveButton";
 import BackButton from "../components/buttons/BackButton";
 import axios from "axios";
 import API from "../constants/API";
-import useAuthStore from "../hooks/ZustandStore";
+import ZustandStore from "../hooks/ZustandStore";
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const setToken = useAuthStore((state) => state.setToken);
+	const setToken = ZustandStore.useAuthStore((state) => state.setToken);
 		const [loading, setLoading] = useState(false);
 
 	const ToHome = () => {

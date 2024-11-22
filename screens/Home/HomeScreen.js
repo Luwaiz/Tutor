@@ -13,10 +13,10 @@ import Testimonials from "../../components/Testimonials";
 import BlogBox from "../../components/BlogsBox";
 import axios from "axios";
 import API from "../../constants/API";
-import useAuthStore from "../../hooks/ZustandStore";
+import ZustandStore from "../../hooks/ZustandStore";
 
 const HomeScreen = () => {
-	const token = useAuthStore((state) => state.token);
+	const token = ZustandStore.useAuthStore((state) => state.token);
 	const [username, setUsername] = useState("");
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {

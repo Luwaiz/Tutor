@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./styles";
 
 const Lesson = ({ route, navigation }) => {
-	const { courseTitle, image } = route.params;
+	const { courseName, image, hours, lessons } = route.params;
 	const GoBack = () => {
 		navigation.goBack();
 	};
@@ -16,7 +16,7 @@ const Lesson = ({ route, navigation }) => {
 					<Ionicons name="chevron-back-sharp" size={30} color="#8190A2" />
 				</TouchableOpacity>
 				<View style={styles.circle} />
-				<Text style={styles.title}>{courseTitle}</Text>
+				<Text style={styles.title}>{courseName}</Text>
 			</View>
 			<ScrollView>
 
@@ -41,11 +41,11 @@ const Lesson = ({ route, navigation }) => {
 			<View style={styles.descriptionContainer}>
 				<View style={styles.topContainer}>
 					<View style={styles.chapterContainer}>
-						<Text style={styles.strongText}>3</Text>
+						<Text style={styles.strongText}>{lessons}</Text>
 						<Text style={styles.strongText}>Lessons</Text>
 					</View>
 					<View style={styles.chapterContainer}>
-						<Text style={styles.strongText}>2:30:00</Text>
+						<Text style={styles.strongText}>{hours}</Text>
 						<Text style={styles.strongText}>Hours</Text>
 					</View>
 				</View>
