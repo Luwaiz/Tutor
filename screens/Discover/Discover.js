@@ -2,7 +2,9 @@ import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import BottomDiscover from "../../components/BottomDiscover";
+import College from "../../assets/svg/College.svg";
 import styles from "./styles";
 import axios from "axios";
 import API from "../../constants/API";
@@ -39,7 +41,6 @@ const Discover = () => {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			console.log(response.data);
 			setCourses(response.data);
 			setLoading(false);
 		} catch (e) {
@@ -53,6 +54,9 @@ const Discover = () => {
 		getAllCourses();
 		setRefreshing(false);
 	};
+	const Clear=()=>{
+		setSearch("");
+	}
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.SearchBar}>
@@ -65,7 +69,9 @@ const Discover = () => {
 					onChangeText={(text) => setSearch(text)}
 					value={search}
 				/>
+				<AntDesign name="closecircleo" size={24} color="#ffffff" onPress={Clear}/>
 			</View>
+			<College style={styles.College}/>
 			<BottomDiscover
 				loading={loading}
 				courses={filteredCourses}

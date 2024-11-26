@@ -10,6 +10,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CourseCard from "../../components/CourseCard";
+import TeamWork from "../../assets/svg/TeamWork.svg";
+import Study from "../../assets/svg/Study.svg";
+import BigBulb from "../../assets/svg/BigBulb.svg";
+import ManBook from "../../assets/svg/ManBook.svg";
+import WomanBook from "../../assets/svg/WomanBook.svg";
+import GirlBook from "../../assets/svg/GirlBook.svg";
 import Header from "../../components/Header";
 import styles from "./styles";
 import ZustandStore from "../../hooks/ZustandStore";
@@ -20,7 +26,8 @@ const Courses = ({ route }) => {
 	const token = ZustandStore.useAuthStore((state) => state.token);
 	const [loading, setLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
-	const [refreshing,setRefreshing] = useState(false)
+	const svgs = [ManBook, TeamWork, Study,GirlBook, BigBulb];
+	const [refreshing, setRefreshing] = useState(false);
 
 	const enrolledCourses = async () => {
 		setLoading(true);
@@ -34,7 +41,7 @@ const Courses = ({ route }) => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
-				console.log("enrolled courses", response.data);
+				console.log(response.data.enrolledCourses)
 				setCourses(response.data.enrolledCourses);
 				setLoading(false);
 			} catch (error) {
@@ -44,30 +51,32 @@ const Courses = ({ route }) => {
 		}
 	};
 
-	const onRefresh=()=>{
+	const onRefresh = () => {
 		setRefreshing(true);
 		enrolledCourses();
 		setRefreshing(false);
-	}
+	};
 	useEffect(() => {
 		enrolledCourses();
 	}, []);
 
 	return (
 		<>
-			<Header title={route.name} />
+			<Header title={"Enrolled Courses"} />
 			<SafeAreaView style={styles.container}>
 				{loading ? (
 					<ActivityIndicator color={"#042637"} size={50} />
 				) : (
-					<ScrollView 
-					refreshControl={<RefreshControl
-						refreshing={refreshing}
-						onRefresh={onRefresh}
-					/>}
-					showsVerticalScrollIndicator={false}>
+					<ScrollView
+						refreshControl={
+							<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+						}
+						showsVerticalScrollIndicator={false}
+						contentContainerStyle={{paddingBottom: 90}}
+					>
 						{courses.map((course, index) => (
-						 <CourseCard key={index} course={course} />
+							<CourseCard index={index} key={index} course={course} svg={svgs}
+							/>
 						))}
 					</ScrollView>
 				)}

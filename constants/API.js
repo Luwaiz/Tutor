@@ -1,14 +1,15 @@
-import prod from "./Production"
-const url = prod? "https://tutor-backend-hbov.onrender.com":""
+import prod from "./Production";
+const url = prod ? "https://tutor-backend-hbov.onrender.com/api" : "";
 
-export default{
-    "signup":`${url}/api/auth/signup`,
-    "login":`${url}/api/auth/login`,
-    "userDetails":`${url}/api/auth/user`,
-    "createCourses":`${url}/api/courses/upload`,
-    "getCourses": `${url}/api/courses/allCourses`,
-    "enroll": `${url}/api/courses/enroll`,
-    "enrolledCourse": `${url}/api/courses/enrolled-courses`,
-    "deleteCourse": `${url}/api/courses/:id`,
-    "uploadImage": `${url}/api/upload/image`,
-}
+export default {
+	signup: `${url}/auth/signup`,
+	login: `${url}/auth/login`,
+	userDetails: `${url}/auth/user`,
+	createCourses: `${url}/courses/upload`,
+	getCourses: `${url}/courses/allCourses`,
+	enroll: `${url}/courses/enroll`,
+	enrolledCourse: `${url}/courses/enrolled-courses`,
+	uploadImage: `${url}/upload/image`,
+	getQuizzes: `${url}/courses`, ///:courseId,/quizzes
+	categoryCourses: `${url}/courses/category`,
+};

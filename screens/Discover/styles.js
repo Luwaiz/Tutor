@@ -23,8 +23,14 @@ const styles = StyleSheet.create({
 		height:"100%",
 		alignItems: "center",
 		justifyContent: "center",
-		color: "#ffffff"
-    }
+		color: "#ffffff",
+		zIndex:1
+    },
+	College:{
+		position: "absolute",
+        left: -20, // Shift it to the right (negative value moves outside the box)
+        top: -150,
+	}
 
 });
 export default styles

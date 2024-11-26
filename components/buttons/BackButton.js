@@ -15,7 +15,7 @@ const BackButton = ({text}) => {
         <View style={styles.headCont}>
 		<TouchableOpacity activeOpacity={0.8} onPress={goBack}>
 			<View style={styles.back}>
-				<AntDesign name="arrowleft" size={24} color="black" />
+				<AntDesign name="arrowleft" size={20} color="black" />
 			</View>
 		</TouchableOpacity>
         {text}
@@ -28,14 +28,14 @@ export default BackButton;
 const styles = StyleSheet.create({
     headCont: {
 		width,
-		paddingHorizontal: 16,
 		flexDirection: "row",
 		alignItems: "center",
 		gap: 10,
+		paddingVertical:5
 	},
 	back: {
-		width: 48,
-		height: 48,
+		width: 40,
+		height: 40,
 		borderRadius: 50,
 		backgroundColor: "#8190A2",
 		alignItems: "center",

@@ -4,11 +4,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "white",
-		paddingBottom: 20,
 	},
 	header: {
 		padding: 12,
-		alignItems: "center",
 		flexDirection: "row",
 	},
 	circle: {
@@ -38,14 +36,11 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		padding: 20,
-		backgroundColor: "#F7F7F7",
+		backgroundColor: "#E0E0E0",
 		borderRadius: 8,
-		marginTop: 200,
 	},
-	lessonTitle: {
-		fontSize: 20,
-		fontWeight: "bold",
-		marginBottom: 16,
+	lessons: {
+		marginBottom: 30,
 	},
 	lessonDescription: {
 		fontSize: 16,
@@ -58,7 +53,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		position: "absolute",
 		top: 200,
-		backgroundColor: "#EDF0F7",
+		backgroundColor: "#042637",
 	},
 	chapterContainer: {
 		alignItems: "center",
@@ -85,10 +80,9 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 10,
 	},
     descriptionText: {
-        fontSize: 16,
+        fontSize: 14,
         marginTop: 10,
-        lineHeight: 24,
-        textAlign: "justify",
+        lineHeight: 20,
         maxWidth: "85%",
     }
 })

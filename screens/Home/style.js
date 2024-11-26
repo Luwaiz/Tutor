@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	container: {
@@ -7,40 +8,81 @@ const styles = StyleSheet.create({
 	},
 	subContainer: {
 		padding: 16,
-	},
-	welcome: {
-		fontSize: 20,
-		fontWeight: "500",
-	},
-	name: {
-		fontSize: 24,
-		fontWeight: "900",
-	},
-	bottomText: {
+		width: width,
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
+	},
+	topContainer: {
 		padding: 16,
-		alignItems:"center"
+		width: "100%",
+		flexDirection: "row",
+		justifyContent: "space-between",
 	},
-	textLeft: {
-		fontSize: 18,
+	welcome: {
+		fontSize: 35,
 		fontWeight: "500",
+		color: "#042659",
 	},
-    blogCont:{
-		flexDirection:"row",
-		justifyContent:"space-between",
-        paddingTop:20,
-        paddingBottom:20,
-		alignItems:"center"
+	name: {
+		fontSize: 45,
+		fontWeight: "900",
+		color: "#042637",
 	},
-	blogTitle:{
-		fontSize:18,
-        fontWeight:"500",
+	whatText:{
+		fontSize: 18,
+        fontWeight: "700",
+        color: "#042637",
+		marginLeft:16
 	},
-	viewAll:{
-		fontSize:12,
-        fontWeight:"400",
-        color:"#007bff",
+	bigBox: {
+		backgroundColor: "#042637",
+		borderRadius: 10,
+		marginBottom: 10,
+		height: 300,
+		width: width / 2 - 20,
+		overflow:"hidden"
+	},
+	smallBox: {
+		backgroundColor: "#3D0155",
+		borderRadius: 10,
+		padding: 16,
+		marginBottom: 10,
+		height: 220,
+		width: width / 2 - 20,
+		overflow:"hidden"
+	},
+	title:{
+		fontSize: 24,
+		fontWeight: "500",
+		marginTop: 16,
+		marginLeft: 16,
+		color: "white"
+	},
+	Title:{
+		fontSize: 24,
+        fontWeight: "500",
+        color: "white"
+	},
+	 boyBook: {
+		position: "absolute",
+		top: -70,
+		left: -100, 
+	},
+	ladyBook: {
+		position: "absolute",
+		left: -15, 
+		top: 50,
+	},
+	bigHead:{
+		position: "absolute",
+		left: -30, 
+		top: 70,
+	},
+	TechBro:{
+		position: "absolute",
+        left: -20, 
+        top: 30,
 	}
 });
 export default styles;
