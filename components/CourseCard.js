@@ -1,23 +1,67 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+	Dimensions,
+	Image,
+	Pressable,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("screen");
 
-const CourseCard = ({ courseTitle }) => {
+const CourseCard = ({ course, image, index, svg }) => {
+	const navigation = useNavigation();
+	const { courseName, hours, lessons, courseDescription, content, _id, category } =
+		course;
+
+	const onCoursePress = () => {
+		navigation.navigate("Lesson", {
+			courseName,
+			image,
+			hours,
+			lessons,
+			content,
+			_id,
+			SvgImage,
+			category
+		});
+	};
+	const SvgImage = svg[index % svg.length];
+	const trimDescription=(description)=>{
+		if(description.length>150){
+            return description.slice(0,150)+"...";
+        }else{
+            return description;
+        }
+	}
+
 	return (
-		<View style={styles.box}>
-			<View style={styles.topBox}>
-				<View style={styles.circle} />
-				<Text style={styles.courseName}>{courseTitle}</Text>
-				<View>
-					<Text style={styles.time}>03{"\n"}HRS</Text>
+		<Pressable style={styles.box} onPress={onCoursePress}>
+			<View>
+				<SvgImage style={styles.Image} />
+				<View style={styles.topContainer}>
+					<View style={styles.topBox}>
+						<Text style={styles.courseName}>{courseName}</Text>
+						<View>
+							{hours.length > 1 ? (
+								<Text style={styles.time}>{hours}</Text>
+							) : (
+								<Text style={styles.time}>0{hours}</Text>
+							)}
+							<Text style={styles.time}>HRS</Text>
+						</View>
+					</View>
+					<Text style={styles.description}>{trimDescription(courseDescription)}</Text>
 				</View>
 			</View>
-			<Text style={styles.description}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et lectus
-				vel arcu viverra bibendum.
-			</Text>
-			<View style={styles.bottomBox}></View>
-		</View>
+			<View
+				style={[
+					styles.bottomBox,
+					{ backgroundColor: index % 2 ? "#3D0155" : "#042637" },
+				]}
+			></View>
+		</Pressable>
 	);
 };
 
@@ -25,20 +69,20 @@ export default CourseCard;
 
 const styles = StyleSheet.create({
 	box: {
-		backgroundColor: "#Ffffff",
-		width: "90%",
-		height: 180,
+		backgroundColor: "#EDF0F7",
+		width: width-32,
 		borderRadius: 10,
 		marginVertical: 10,
-		shadowColor: '#919193',  
-		elevation: 15,  
+		shadowColor: "#919193",
+		elevation: 15,
 		overflow: "hidden",
-		alignSelf:"center"
-
+		alignSelf: "center",
+	},
+	contentContainer: {
+		width: "50%",
 	},
 	topBox: {
 		width: "100%",
-		padding: 10,
 		flexDirection: "row",
 		alignItems: "center",
 	},
@@ -50,20 +94,24 @@ const styles = StyleSheet.create({
 		marginRight: 16,
 	},
 	bottomBox: {
-		backgroundColor: "#EDF0F7",
+		backgroundColor: "#042637",
 		width: "100%",
-		height: 50,
+		height: 30,
 		marginTop: "auto",
+	},
+	Image: {
+		position: "absolute",
+		left: -110,
+		bottom: -10,
 	},
 	courseName: {
 		fontSize: 18,
 		fontWeight: "bold",
 		color: "#000000",
-		maxWidth:250,
+		maxWidth: 180,
 		marginRight: "auto",
 	},
 	description: {
-		marginHorizontal: 16,
 		fontSize: 12,
 		color: "#666666",
 	},
@@ -72,5 +120,12 @@ const styles = StyleSheet.create({
 		color: "#000000",
 		textAlign: "center",
 		fontWeight: "500",
+		marginLeft:10
 	},
+	topContainer: {
+		width:"60%",
+		marginLeft:"auto",
+		marginRight:16,
+		padding:10
+	}
 });

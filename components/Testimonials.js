@@ -57,8 +57,6 @@ const Testimonials = () => {
 		<View>
 			<ScrollView
 				contentContainerStyle={styles.container}
-				horizontal
-				showsHorizontalScrollIndicator={false}
 				bounces={false}
 				alwaysBounceHorizontal={false}
 			>
@@ -73,10 +71,7 @@ const Testimonials = () => {
 const Testimony = ({ item }) => {
 	return (
 		<View style={styles.box}>
-			<ImageBackground style={styles.BackgroundImage} source={item.image}>
-				<View style={styles.overlay}/>
 				<Text style={styles.courseName}>{item.name}</Text>
-			</ImageBackground>
 		</View>
 	);
 };
@@ -87,9 +82,10 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		width: width - 100,
 		alignSelf: "center",
-		height: 130,
+		height: 150,
 		borderRadius: 5,
 		overflow: "hidden",
+		backgroundColor:"#042637"
 	},
 	container: {
 		gap: 20,

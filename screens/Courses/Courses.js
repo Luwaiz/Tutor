@@ -1,111 +1,106 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+	ActivityIndicator,
+	Image,
+	RefreshControl,
+	ScrollView,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CourseCard from "../../components/CourseCard";
+import TeamWork from "../../assets/svg/TeamWork.svg";
+import Study from "../../assets/svg/Study.svg";
+import BigBulb from "../../assets/svg/BigBulb.svg";
+import ManBook from "../../assets/svg/ManBook.svg";
+import WomanBook from "../../assets/svg/WomanBook.svg";
+import GirlBook from "../../assets/svg/GirlBook.svg";
 import Header from "../../components/Header";
+import styles from "./styles";
+import ZustandStore from "../../hooks/ZustandStore";
+import axios from "axios";
+import API from "../../constants/API";
+import SearchBar from "../../components/SearchBar";
 
 const Courses = ({ route }) => {
-	const data = [
-		{
-			id: 1,
-			name: "Educational themes",
-			image: require("../../assets/images/image1.jpg"),
-		},
-		{
-			id: 2,
-			name: "Mind blowing thesis and research",
-			image: require("../../assets/images/image2.jpg"),
-		},
-		{
-			id: 3,
-			name: "Field study and accreditation",
-			image: require("../../assets/images/image3.jpg"),
-		},
-		{
-			id: 4,
-			name: "Educational themes",
-			image: require("../../assets/images/image2.jpg"),
-		},
-		{
-			id: 5,
-			name: "Mind blowing thesis and research",
-			image: require("../../assets/images/image1.jpg"),
-		},
-		{
-			id: 6,
-			name: "Field study and accreditation",
-			image: require("../../assets/images/image3.jpg"),
-		},
-		{
-			id: 7,
-			name: "Educational themes",
-			image: require("../../assets/images/image3.jpg"),
-		},
-		{
-			id: 8,
-			name: "Mind blowing thesis and research",
-			image: require("../../assets/images/image2.jpg"),
-		},
-		{
-			id: 9,
-			name: "Field study and accreditation",
-			image: require("../../assets/images/image1.jpg"),
-		},
-		{
-			id: 10,
-			name: "Educational themes",
-			image: require("../../assets/images/image2.jpg"),
-		},
-		{
-			id: 11,
-			name: "Mind blowing thesis and research",
-			image: require("../../assets/images/image1.jpg"),
-		},
-		{
-			id: 12,
-			name: "Field study and accreditation",
-			image: require("../../assets/images/image3.jpg"),
-		},
-		{
-			id: 13,
-			name: "Educational themes",
-			image: require("../../assets/images/image1.jpg"),
-		},
-		{
-			id: 14,
-			name: "Mind blowing thesis and research",
-			image: require("../../assets/images/image2.jpg"),
-		},
-		{
-			id: 15,
-			name: "Field study and accreditation",
-			image: require("../../assets/images/image3.jpg"),
-		},
-		{
-			id: 16,
-			name: "Educational themes",
-			image: require("../../assets/images/image1.jpg"),
-		},
-	];
+	const token = ZustandStore.useAuthStore((state) => state.token);
+	const [loading, setLoading] = useState(false);
+	const [courses, setCourses] = useState([]);
+	const [search, setSearch] = useState("");
+	const [filteredCourses, setFilteredCourses] = useState([]);
+	const svgs = [ManBook, TeamWork, Study, GirlBook, BigBulb];
+	const [refreshing, setRefreshing] = useState(false);
+
+	const enrolledCourses = async () => {
+		setLoading(true);
+		if (!token) {
+			console.log("No token");
+			setLoading(false);
+		} else {
+			try {
+				const response = await axios.get(API.enrolledCourse, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				setCourses(response.data.enrolledCourses);
+				setLoading(false);
+			} catch (error) {
+				console.log(error.response.data);
+				setLoading(false);
+			}
+		}
+	};
+
+	const onRefresh = () => {
+		setRefreshing(true);
+		enrolledCourses();
+		setRefreshing(false);
+	};
+	useEffect(() => {
+		enrolledCourses();
+	}, []);
+
 	return (
 		<>
-			<Header title={route.name} />
 			<SafeAreaView style={styles.container}>
-				<ScrollView showsVerticalScrollIndicator={false}>
-					{data.map((course) => (
-						<CourseCard key={course.id} courseTitle={course.name} />
-					))}
-				</ScrollView>
+				<View style={styles.header}>
+					<Header title={"Enrolled Courses"} />
+					<SearchBar
+						courses={courses}
+						search={search}
+						setFilteredCourses={setFilteredCourses}
+						setSearch={setSearch}
+					/>
+				</View>
+				{loading ? (
+					<ActivityIndicator color={"#042637"} size={50} />
+				) : filteredCourses.length > 0 ? (
+					<ScrollView
+						refreshControl={
+							<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+						}
+						showsVerticalScrollIndicator={false}
+						contentContainerStyle={{ paddingBottom: 90 }}
+					>
+						{filteredCourses.map((course, index) => (
+							<CourseCard
+								index={index}
+								key={index}
+								course={course}
+								svg={svgs}
+							/>
+						))}
+					</ScrollView>
+				) : (
+					<Text style={{ textAlign: "center", marginTop: 20 }}>
+						Course Unavailable
+					</Text>
+				)}
 			</SafeAreaView>
 		</>
 	);
 };
 
 export default Courses;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "white",
-	},
-});

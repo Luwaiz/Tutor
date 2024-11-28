@@ -16,9 +16,8 @@ const styles = StyleSheet.create({
 		width: "100%",
 		backgroundColor: "#ffffff",
 		justifyContent: "center",
-		height: StatusBar.currentHeight *2.5,
-        paddingTop: StatusBar.currentHeight+10,
-        paddingLeft:20
+		height: StatusBar.currentHeight *2,
+		alignSelf:"flex-start"
 	},
     title: {
         fontSize: 24,
