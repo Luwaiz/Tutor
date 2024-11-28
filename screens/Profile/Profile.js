@@ -7,81 +7,53 @@ import API from "../../constants/API";
 import axios from "axios";
 import ZustandStore from "../../hooks/ZustandStore";
 import ActiveButton from "../../components/buttons/ActiveButton";
-// import Avatar from "../../assets/svg/Frame 91profile.svg";
+import styles from "./style";
+import { SafeAreaView } from "react-native-safe-area-context";
+import NerdBook from "../../assets/svg/Questions.svg";
 
-const ProfilePage = ({navigation}) => {
-
-    const token = ZustandStore.useAuthStore((state) => state.token);
+const ProfilePage = ({ navigation, route }) => {
+	const token = ZustandStore.useAuthStore((state) => state.token);
 	const clearToken = ZustandStore.useAuthStore((state) => state.clearToken);
+	const { username, email } = route.params;
 
-	const [username, setUsername] = useState("");
-    const [email,setEmail] = useState("");
-    const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        userDetails();
-    }, []);
-
-    const userDetails = async () => {
+	const LogOut = () => {
 		setLoading(true);
-		if (!token) {
-			console.log("No token");
-			setLoading(false);
-		} else {
-			try {
-				const response = await axios.get(API.userDetails, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-				setUsername(response.data.username);
-                setEmail(response.data.email)
-				setLoading(false);
-			} catch (e) {
-				console.log(e);
-				setLoading(false);
-			}
-		}
-	};
-	const LogOut=()=>{
 		clearToken();
-		navigation.navigate("Auth")
-	}
+		setLoading(false);
+		navigation.navigate("Auth");
+	};
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
+		<View style={styles.subContainer}>
+
 			<BackButton text={<Text style={styles.headText}>Profile</Text>} />
 			<View style={styles.avatarCont}>
-				<Avatar.Image size={150}/>
+				<Avatar.Text
+					label={username
+						.split(" ")
+						.map((n) => n[0])
+						.join("")}
+					color="#ffffff"
+					style={{
+						backgroundColor: "#3D0155",
+						borderColor: "#042659",
+						borderWidth: 1,
+					}}
+					size={150}
+				/>
 			</View>
 			<View style={styles.infoCont}>
-            <Details text={"Username"} value={username}/>
-            <Details text={"Email"} value={email}/>
-            <ActiveButton title={"Log out"} onPress={LogOut}/>
+				<Text style={styles.username}>{username}</Text>
+				<Text style={styles.email}>{email}</Text>
 			</View>
+			<ActiveButton title={"Log out"} onPress={LogOut} loading={loading} />
 		</View>
+			<NerdBook style={styles.NerdBook}/>
+		</SafeAreaView>
 	);
 };
 
 export default ProfilePage;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingTop: StatusBar.currentHeight,
-		backgroundColor: "#ffffff",
-	},
-
-	headText: {
-		color: "black",
-		fontSize: 24,
-	},
-	infoCont: {
-		paddingHorizontal: 16,
-		justifyContent: "center",
-	},
-	avatarCont: {
-		alignSelf: "center",
-		marginVertical: 24,
-	},
-});

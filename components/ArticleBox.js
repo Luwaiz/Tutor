@@ -7,6 +7,7 @@ import {
 	Pressable,
 	StyleSheet,
 	Text,
+	ToastAndroid,
 	TouchableOpacity,
 	View,
 } from "react-native";
@@ -50,12 +51,31 @@ const ArticleBox = ({ item, index,svgs}) => {
 				console.log("enrolled successfully", response.data);
 				setLoading(false);
 				setModal(false);
+				successToast();
 			} catch (error) {
 				console.log(error.response.data);
 				setLoading(false);
+				setModal(false);
+				if (error.response.data.message === "You are already enrolled in this course"){
+					enrolledToast();
+				}else{
+					failedToast();
+				}
 			}
 		}
 	};
+
+	const successToast = () => {
+		ToastAndroid.show('Enrolled successfully !', ToastAndroid.SHORT);
+	  };
+	
+	  const enrolledToast = () => {
+		ToastAndroid.show('You are already enrolled in this course', ToastAndroid.SHORT);
+	  }
+
+	  const failedToast = () => {
+		ToastAndroid.show('Failed to enroll', ToastAndroid.SHORT);
+	  }
 
 	return (
 		<>

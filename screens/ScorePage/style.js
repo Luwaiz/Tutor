@@ -7,24 +7,24 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		paddingHorizontal: 16,
 		alignItems: "center",
-        justifyContent:"center"
 	},
 	scoreContainers: {
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
 		width: width - 100,
-        marginBottom: 50
+        marginBottom: 150
 	},
 	title: {
 		fontSize: 24,
 		fontWeight: "bold",
         textAlign:"center",
-        marginBottom: 20
+        marginBottom: 10,
+		marginTop:30
 	},
 	topContainer: {
         width: width - 100,
-        marginBottom: 50,
+        marginBottom: 195,
         alignItems: "center",
 	},
 	scoreCont: {
@@ -39,6 +39,17 @@ const styles = StyleSheet.create({
     text:{
         fontSize: 18,
         fontWeight: "500",
-    }
+		color:"#ffffff"
+    },
+	Celebrate:{
+		position: "absolute",
+		top: 230,
+		zIndex:11
+	},
+	Gift:{
+		position: "absolute",
+        bottom: 80,
+        left: -50,
+	}
 });
 export default styles;

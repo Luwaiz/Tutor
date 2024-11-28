@@ -20,8 +20,9 @@ const Quiz = ({ route, navigation }) => {
 	const [quiz, setQuiz] = useState([]);
 	const [userAnswers, setUserAnswers] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [saveScore, setSaveScore] = useState(false);
 
-	const { _id } = route.params;
+	const { _id, category } = route.params;
 	const courseId = encodeURIComponent(_id);
 
 	const GetQuiz = async () => {
@@ -45,6 +46,24 @@ const Quiz = ({ route, navigation }) => {
 		GetQuiz();
 	}, []);
 
+	const UploadScore = async (score) => {
+		setSaveScore(true);
+		const req = {
+			courseId,
+			category,
+			score,
+		};
+		try {
+			const response = await axios.post(API.uploadQuizResults, req, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			console.log(response.data);
+			setSaveScore(false);
+		} catch (error) {
+			console.log(error);
+			setSaveScore(false);
+		}
+	};
 	const handleAnswerSelected = (questionId, selectedOption) => {
 		setUserAnswers((prevAnswers) => ({
 			...prevAnswers,
@@ -52,7 +71,7 @@ const Quiz = ({ route, navigation }) => {
 		}));
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		let score = 0;
 
 		quiz.forEach((q) => {
@@ -64,20 +83,24 @@ const Quiz = ({ route, navigation }) => {
 		});
 		let total = quiz[0].questions.length;
 		let lost = quiz[0].questions.length - score;
+		await UploadScore(score);
 		navigation.navigate("Quiz Result", { total, lost, score });
 	};
 
 	return (
 		<>
-			<Header title={route.name} />
 			<SafeAreaView style={styles.container}>
+				<Header title={route.name} />
 				{loading ? (
 					<ActivityIndicator color={"#042637"} size={50} />
 				) : (
 					<>
 						<ScrollView
 							indicatorStyle="#042637"
-							contentContainerStyle={{ backgroundColor: "#ffffff",paddingBottom:30 }}
+							contentContainerStyle={{
+								backgroundColor: "#ffffff",
+								paddingBottom: 30,
+							}}
 						>
 							{quiz.map((quiz) =>
 								quiz.questions.map((question, index) => (
@@ -88,7 +111,11 @@ const Quiz = ({ route, navigation }) => {
 									/>
 								))
 							)}
-							<ActiveButton title="Submit Quiz" onPress={handleSubmit} />
+							<ActiveButton
+								title="Submit Quiz"
+								onPress={handleSubmit}
+								loading={saveScore}
+							/>
 						</ScrollView>
 					</>
 				)}

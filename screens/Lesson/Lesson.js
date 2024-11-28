@@ -13,14 +13,13 @@ import styles from "./styles";
 import ActiveButton from "../../components/buttons/ActiveButton";
 
 const Lesson = ({ route, navigation }) => {
-	const { courseName, image, hours, lessons, content,_id,SvgImage } = route.params;
+	const { courseName, image, hours, lessons, content,_id,SvgImage, category} = route.params;
 	const [height, setHeight] = useState();
-	console.log(content);
 	const GoBack = () => {
 		navigation.goBack();
 	};
 	const TakeQuiz= () => {
-		navigation.navigate("Quiz", { courseName, hours, lessons, content,_id });
+		navigation.navigate("Quiz", { courseName, hours, lessons, content,_id , category});
 	}
 	return (
 		<SafeAreaView style={styles.container}>
@@ -39,8 +38,8 @@ const Lesson = ({ route, navigation }) => {
 				<View style={[styles.content, { paddingTop: height }]}>
 					{content.map((item, index) => (
 						<View key={index} style={styles.lessons}>
-							<Text style={styles.strongText}>{item.title}</Text>
-							<Text style={styles.descriptionText}>{item.description}</Text>
+							<Text selectable style={styles.strongText}>{item.title}</Text>
+							<Text selectable style={styles.descriptionText}>{item.description}</Text>
 						</View>
 					))}
 				<ActiveButton title={"Take Quiz"} onPress={TakeQuiz}/>

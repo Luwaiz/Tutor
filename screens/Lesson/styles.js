@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 10,
         lineHeight: 20,
-        maxWidth: "85%",
+        maxWidth: "100%",
     }
 })
 export default styles

@@ -18,7 +18,7 @@ import ArticleBox from "./ArticleBox";
 const { width, height } = Dimensions.get("window");
 
 const BottomDiscover = ({ loading, courses, onRefresh, refreshing }) => {
-	const svgs = [Study,WomanBook, TeamWork, GirlBook, BigBulb,ManBook];
+	const svgs = [Study, WomanBook, TeamWork, GirlBook, BigBulb, ManBook];
 	return (
 		<View style={styles.bottom}>
 			<Text style={styles.header}>Available Courses</Text>
@@ -33,8 +33,9 @@ const BottomDiscover = ({ loading, courses, onRefresh, refreshing }) => {
 					}
 				>
 					{courses.map((item, index) => {
-						
-						return <ArticleBox key={index} item={item} index={index} svgs={svgs} />;
+						return (
+							<ArticleBox key={index} item={item} index={index} svgs={svgs} />
+						);
 					})}
 				</ScrollView>
 			) : (

@@ -1,14 +1,14 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Feather from "@expo/vector-icons/Feather";
-import AntDesign from "@expo/vector-icons/AntDesign";
+
 import BottomDiscover from "../../components/BottomDiscover";
 import College from "../../assets/svg/College.svg";
 import styles from "./styles";
 import axios from "axios";
 import API from "../../constants/API";
 import ZustandStore from "../../hooks/ZustandStore";
+import SearchBar from "../../components/SearchBar";
 
 const Discover = () => {
 	const [loading, setLoading] = useState(false);
@@ -21,17 +21,6 @@ const Discover = () => {
 	useEffect(() => {
 		getAllCourses();
 	}, []);
-
-	useEffect(() => {
-		if (search.trim() === "") {
-			setFilteredCourses(courses); // Show all courses if no search
-		} else {
-			const filtered = courses.filter((course) =>
-				course.courseName.toLowerCase().includes(search.toLowerCase())
-			);
-			setFilteredCourses(filtered);
-		}
-	}, [search, courses]);
 
 	const getAllCourses = async () => {
 		setLoading(true);
@@ -54,24 +43,12 @@ const Discover = () => {
 		getAllCourses();
 		setRefreshing(false);
 	};
-	const Clear=()=>{
-		setSearch("");
-	}
+
 	return (
 		<SafeAreaView style={styles.container}>
-			<View style={styles.SearchBar}>
-				<Feather name="search" size={24} color="#ffffff" />
-				<TextInput
-					placeholder="Search"
-					placeholderTextColor="#ffffff"
-					cursorColor={"#ffffff"}
-					style={styles.Search}
-					onChangeText={(text) => setSearch(text)}
-					value={search}
-				/>
-				<AntDesign name="closecircleo" size={24} color="#ffffff" onPress={Clear}/>
-			</View>
-			<College style={styles.College}/>
+			<SearchBar courses={courses} search={search} setSearch={setSearch} setFilteredCourses={setFilteredCourses}/>
+
+			<College style={styles.College} />
 			<BottomDiscover
 				loading={loading}
 				courses={filteredCourses}

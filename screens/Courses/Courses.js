@@ -21,12 +21,15 @@ import styles from "./styles";
 import ZustandStore from "../../hooks/ZustandStore";
 import axios from "axios";
 import API from "../../constants/API";
+import SearchBar from "../../components/SearchBar";
 
 const Courses = ({ route }) => {
 	const token = ZustandStore.useAuthStore((state) => state.token);
 	const [loading, setLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
-	const svgs = [ManBook, TeamWork, Study,GirlBook, BigBulb];
+	const [search, setSearch] = useState("");
+	const [filteredCourses, setFilteredCourses] = useState([]);
+	const svgs = [ManBook, TeamWork, Study, GirlBook, BigBulb];
 	const [refreshing, setRefreshing] = useState(false);
 
 	const enrolledCourses = async () => {
@@ -41,11 +44,10 @@ const Courses = ({ route }) => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
-				console.log(response.data.enrolledCourses)
 				setCourses(response.data.enrolledCourses);
 				setLoading(false);
 			} catch (error) {
-				console.log(error);
+				console.log(error.response.data);
 				setLoading(false);
 			}
 		}
@@ -62,23 +64,39 @@ const Courses = ({ route }) => {
 
 	return (
 		<>
-			<Header title={"Enrolled Courses"} />
 			<SafeAreaView style={styles.container}>
+				<View style={styles.header}>
+					<Header title={"Enrolled Courses"} />
+					<SearchBar
+						courses={courses}
+						search={search}
+						setFilteredCourses={setFilteredCourses}
+						setSearch={setSearch}
+					/>
+				</View>
 				{loading ? (
 					<ActivityIndicator color={"#042637"} size={50} />
-				) : (
+				) : filteredCourses.length > 0 ? (
 					<ScrollView
 						refreshControl={
 							<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 						}
 						showsVerticalScrollIndicator={false}
-						contentContainerStyle={{paddingBottom: 90}}
+						contentContainerStyle={{ paddingBottom: 90 }}
 					>
-						{courses.map((course, index) => (
-							<CourseCard index={index} key={index} course={course} svg={svgs}
+						{filteredCourses.map((course, index) => (
+							<CourseCard
+								index={index}
+								key={index}
+								course={course}
+								svg={svgs}
 							/>
 						))}
 					</ScrollView>
+				) : (
+					<Text style={{ textAlign: "center", marginTop: 20 }}>
+						Course Unavailable
+					</Text>
 				)}
 			</SafeAreaView>
 		</>

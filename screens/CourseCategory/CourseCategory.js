@@ -21,12 +21,15 @@ import API from "../../constants/API";
 import axios from "axios";
 import BackButton from "../../components/buttons/BackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SearchBar from "../../components/SearchBar";
 
 const CourseCategory = ({ route }) => {
 	const [loading, setLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
 	const [refreshing, setRefreshing] = useState(false);
-	const svgs = [GirlBook,ManBook, TeamWork, Study,WomanBook, BigBulb];
+	const [search, setSearch] = useState("");
+	const [filteredCourses, setFilteredCourses] = useState([]);
+	const svgs = [GirlBook, ManBook, TeamWork, Study, WomanBook, BigBulb];
 	const token = ZustandStore.useAuthStore((state) => state.token);
 	const { category } = route.params;
 
@@ -49,21 +52,32 @@ const CourseCategory = ({ route }) => {
 	useEffect(() => {
 		getAllCourses();
 	}, []);
+	const onRefresh = () => {
+		setRefreshing(true);
+		getAllCourses();
+		setRefreshing(false);
+	};
 
 	return (
 		<SafeAreaView style={styles.bottom}>
 			<BackButton text={<Text style={styles.headText}>{category}</Text>} />
+			<SearchBar
+				courses={courses}
+				search={search}
+				setFilteredCourses={setFilteredCourses}
+				setSearch={setSearch}
+			/>
 			{loading ? (
 				<ActivityIndicator color={"#042637"} size={50} />
-			) : courses.length > 0 ? (
+			) : filteredCourses.length > 0 ? (
 				<ScrollView
 					showsVerticalScrollIndicator={false}
 					contentContainerStyle={{ paddingBottom: 100 }}
-					// refreshControl={
-					// 	<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
-					// }
+					refreshControl={
+						<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+					}
 				>
-					{courses.map((item, index) => {
+					{filteredCourses.map((item, index) => {
 						return (
 							<ArticleBox key={index} item={item} index={index} svgs={svgs} />
 						);

@@ -1,26 +1,42 @@
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        paddingHorizontal: 16,
+	container: {
+		flex: 1,
+		backgroundColor: "#ffffff",
+        paddingHorizontal: 16
+	},
+
+	headText: {
+		color: "black",
+		fontSize: 24,
+	},
+	infoCont: {
+        alignItems: "center",
+	},
+	avatarCont: {
+		alignSelf: "center",
+		marginVertical: 20,
+	},
+    username:{
+        fontSize: 35,
+        color: "black",
+        fontWeight: "500",
+        marginBottom: 10,
+        alignSelf: "center",
     },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 16
-    },
-    text: {
+    email:{
         fontSize: 16,
-        lineHeight: 24
+        color: "gray",
+        marginBottom: 50,
+        alignSelf: "center",
     },
-    button: {
-        backgroundColor: "#007bff",
-        borderRadius: 8,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        marginTop: 16
+    NerdBook:{
+        position: "absolute",
+        bottom: -200,
+    },
+    subContainer:{
+        zIndex:1
     }
-})
+});
 export default styles

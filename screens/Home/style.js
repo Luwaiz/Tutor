@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
 		fontSize: 45,
 		fontWeight: "900",
 		color: "#042637",
+		maxWidth:300,
+		flexWrap:"wrap"
 	},
 	whatText:{
 		fontSize: 18,

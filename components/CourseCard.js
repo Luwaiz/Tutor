@@ -12,7 +12,7 @@ const { width, height } = Dimensions.get("screen");
 
 const CourseCard = ({ course, image, index, svg }) => {
 	const navigation = useNavigation();
-	const { courseName, hours, lessons, courseDescription, content, _id } =
+	const { courseName, hours, lessons, courseDescription, content, _id, category } =
 		course;
 
 	const onCoursePress = () => {
@@ -23,7 +23,8 @@ const CourseCard = ({ course, image, index, svg }) => {
 			lessons,
 			content,
 			_id,
-			SvgImage
+			SvgImage,
+			category
 		});
 	};
 	const SvgImage = svg[index % svg.length];
@@ -69,8 +70,7 @@ export default CourseCard;
 const styles = StyleSheet.create({
 	box: {
 		backgroundColor: "#EDF0F7",
-		width: "90%",
-		height: 180,
+		width: width-32,
 		borderRadius: 10,
 		marginVertical: 10,
 		shadowColor: "#919193",
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: "bold",
 		color: "#000000",
-		maxWidth: 250,
+		maxWidth: 180,
 		marginRight: "auto",
 	},
 	description: {

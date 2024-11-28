@@ -9,6 +9,7 @@ import Quiz from "../screens/quizzes/Quiz";
 import Score from "../screens/ScorePage/Score";
 import ProfilePage from "../screens/Profile/Profile";
 import CourseCategory from "../screens/CourseCategory/CourseCategory";
+import LoginScreen from "../screens/Login/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 const AppScreens = () => {
