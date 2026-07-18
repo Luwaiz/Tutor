@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#042637",
 		paddingTop: 26,
-		paddingHorizontal:16
 	},
 	headText: {
 		color: "#ffffff",
@@ -26,11 +25,6 @@ const styles = StyleSheet.create({
 	textInputCont: {
 		width: "100%",
 		flex: 1,
-	},
-	forgot: {
-		alignSelf: "flex-end",
-		marginTop: -10,
-		marginBottom: 16,
 	},
 	OrContainer: {
 		flexDirection: "row",
@@ -50,5 +44,4 @@ const styles = StyleSheet.create({
 		fontWeight: "700",
 	},
 });
-
 export default styles;
