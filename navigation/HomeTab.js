@@ -5,6 +5,7 @@ import HomeScreen from "../screens/Home/HomeScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Discover from "../screens/Discover/Discover";
 import Courses from "../screens/Courses/Courses";
+import Progress from "../screens/Progress/Progress";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,9 @@ const HomeTab = () => {
 							break;
 						case "Discover":
 							iconName = focused ? "compass" : "compass-outline";
+							break;
+						case "Progress":
+							iconName = focused ? "stats-chart-sharp" : "stats-chart-outline";
 							break;
 						default:
 							iconName = "home";
@@ -46,7 +50,7 @@ const HomeTab = () => {
 						{children}
 					</Text>
 				),
-        tabBarItemStyle:styles.tabBarItemStyle,
+				tabBarItemStyle: styles.tabBarItemStyle,
 				tabBarStyle: styles.tabBarStyle,
 				headerShown: false,
 			})}
@@ -54,6 +58,7 @@ const HomeTab = () => {
 			<Tab.Screen name="Home" component={HomeScreen} />
 			<Tab.Screen name="Courses" component={Courses} />
 			<Tab.Screen name="Discover" component={Discover} />
+			<Tab.Screen name="Progress" component={Progress} />
 		</Tab.Navigator>
 	);
 };
@@ -64,19 +69,19 @@ const styles = StyleSheet.create({
 	tabBarStyle: {
 		backgroundColor: "#042637",
 		position: "absolute",
-		height: 80,
+		minHeight: 80,
 		bottom: 10,
 		left: 14,
 		right: 14,
 		borderRadius: 20,
-		borderColor:"#042637"
+		borderColor: "#042637",
 	},
 	label: {
 		fontSize: 12,
 		fontWeight: "600",
 		color: "white",
 	},
-  tabBarItemStyle: {
-    paddingVertical: 18,
-  },
+	tabBarItemStyle: {
+		paddingVertical: 16,
+	},
 });

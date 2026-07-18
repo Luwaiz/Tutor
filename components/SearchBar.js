@@ -2,11 +2,10 @@ import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect } from "react";
 import Feather from "@expo/vector-icons/Feather";
 import AntDesign from "@expo/vector-icons/AntDesign";
-const {width, height} =Dimensions.get("window")
+const { width, height } = Dimensions.get("window");
 
-const SearchBar = ({ search, setSearch, courses,setFilteredCourses }) => {
-
-    useEffect(() => {
+const SearchBar = ({ search, setSearch, courses, setFilteredCourses }) => {
+	useEffect(() => {
 		if (search.trim() === "") {
 			setFilteredCourses(courses); // Show all courses if no search
 		} else {
@@ -44,23 +43,23 @@ const SearchBar = ({ search, setSearch, courses,setFilteredCourses }) => {
 export default SearchBar;
 
 const styles = StyleSheet.create({
-    SearchBar: {
+	SearchBar: {
 		backgroundColor: "#8190A2",
-        borderRadius: 30,
-		width: width-40,
-		height:50,
+		borderRadius: 30,
+		width: width - 40,
+		height: 50,
 		flexDirection: "row",
 		alignItems: "center",
-        paddingHorizontal: 10,
-		zIndex:1,
+		paddingHorizontal: 10,
+		zIndex: 1,
 	},
 	Search: {
-        fontSize: 16,
-        paddingHorizontal: 20,
-		flex:1,
-		height:"100%",
+		fontSize: 16,
+		paddingHorizontal: 20,
+		flex: 1,
+		height: "100%",
 		alignItems: "center",
 		justifyContent: "center",
 		color: "#ffffff",
-    },
+	},
 });

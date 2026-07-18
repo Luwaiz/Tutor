@@ -18,19 +18,16 @@ import axios from "axios";
 import API from "../../constants/API";
 import ZustandStore from "../../hooks/ZustandStore";
 import { Avatar } from "react-native-paper";
-import { BarChart } from "react-native-chart-kit";
 const { width, height } = Dimensions.get("window");
 
 const HomeScreen = ({ navigation }) => {
 	const token = ZustandStore.useAuthStore((state) => state.token);
 	const [username, setUsername] = useState("");
-	const [progressData, setProgressData] = useState(null);
 	const [email, setEmail] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		userDetails();
-		Progress();
 	}, []);
 
 	const userDetails = async () => {
@@ -55,51 +52,18 @@ const HomeScreen = ({ navigation }) => {
 		}
 	};
 
-	const Progress = async () => {
-		try {
-			const response = await axios.get(API.userProgress, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			console.log(response.data);
-			setProgressData(response.data);
-		} catch (e) {
-			console.log("errors", e.response.data);
-		}
-	};
-
-	const labels = Object.keys(progressData !== null && progressData.categoriesProgress);
-	const data = Object.values(progressData !== null && progressData.categoriesProgress).map(
-		(category) => category.averageScore
-	);
-	const chartData = {
-		labels: labels,
-		datasets: [
-			{
-				data: data,
-			},
-		],
-	};
-	const chartConfig = {
-		backgroundGradientFrom: "#fff",
-		backgroundGradientTo: "#fff",
-		color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-		labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-		barPercentage: 0.5,
-	};
 
 	const Profile = () => {
 		navigation.navigate("Profile", { username, email });
 	};
-
+	
 	const Category = (category) => {
 		navigation.navigate("Category", { category });
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+			<ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
 				<View style={styles.topContainer}>
 					<View>
 						<Text style={styles.welcome}>Welcome,</Text>
@@ -127,13 +91,7 @@ const HomeScreen = ({ navigation }) => {
 						/>
 					</Pressable>
 				</View>
-				<BarChart
-					data={chartData}
-					width={width}
-					height={220}
-					chartConfig={chartConfig}
-		
-				/>
+
 				<Text style={styles.whatText}>What do you want to learn?</Text>
 				<View style={styles.subContainer}>
 					<View style={styles.leftContainer}>

@@ -85,6 +85,11 @@ const styles = StyleSheet.create({
 		position: "absolute",
         left: -20, 
         top: 30,
+	},
+	barChart:{
+		marginTop: 20,
+		marginBottom: 10,
+		alignSelf: "center",
 	}
 });
 export default styles;
